@@ -1,0 +1,89 @@
+/* a.hoverWhiteBg:hover {
+    background-color: rgba(255, 255, 255, 0.671);
+    text-decoration: none; 
+  } */
+a.noUnderLine:hover{
+  text-decoration: none; 
+}
+  .imageSize{
+    display:inline-block;
+    width:20px;
+    height:20px;
+    margin-right: 12px;
+    margin-top: 12px;
+  }
+
+  a.hoverBtn:hover{
+   color:black;
+   text-decoration: none; 
+  }
+  .hoverBtn{
+    color:white;
+    
+  }
+  .cardStyle{
+    margin: 30px 0px;
+  }
+  .cardImg{
+    width: 267px;
+     height: 210px;
+  }
+  .iti{
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    border-left:1px solid black;
+    padding-left:34px
+  }
+  .countryImg{
+    height: 168px;
+    width: 223px;
+  }
+  .hiddenInfo{
+    height:20px;
+    width:100px;
+    background-color:#c9c9c9;
+  }
+  .my-page-text {
+    /*height: inherit;*/
+    padding: 8% 5% 5% 3%;
+    /*top: 55px;*/
+
+    /*To support older browsers*/
+    height: 100%;
+    width: 100%;
+
+    /* Set the height to match that of the viewport. */
+    height: 100vh;
+
+    /* Set the width to match that of the viewport. */
+    width: 100vw;
+
+    background-repeat: no-repeat;
+    background-size: 100%;
+    
+}
+
+body.test{
+  background-color: black; 
+}
+
+
+
+  @media (max-width: 575.98px) { 
+    .countryImg{
+      margin:10px 0px;
+      width:100%;
+      min-height: 255px;
+    }
+    .cardImg{
+      width: 100%;
+       height: auto;
+    }
+    .iti{
+      padding-left:0px !important;
+      padding-top:20px;
+      border-left:0px !important;
+     
+    }
+  }

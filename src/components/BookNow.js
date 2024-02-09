@@ -103,9 +103,9 @@ class BookNow extends Component {
         }
      }
     render() {
-		console.log('toDate',typeof this.state.toDate)
+        let textColor = this.props.darkMode? 'white':'black';
         return (
-            <div>
+            <div style={{color:`${textColor}`}}>
                 <Row className="my-3">
                     <Col lg={8}>
                         <Form noValidate validated={this.state.validated} onSubmit={this.submitHandler}>
@@ -201,7 +201,7 @@ class BookNow extends Component {
                                 <Form.Group as={Col} lg="3" controlId="zipcode">
                                     <Form.Label>Zipcode</Form.Label>
                                     <Form.Control type="text" placeholder="Zipcode" name="zipcode" value={this.state.zipcode} required onChange={this.checkNumber}/>
-                                    <Form.Text className="text-muted">
+                                    <Form.Text style={{color:`${textColor}`}}>
                                         6 digits only
                                     </Form.Text>
                                     <Form.Control.Feedback type="invalid">
@@ -260,7 +260,7 @@ class BookNow extends Component {
                                 <Form.Group as={Col} lg="6" controlId="cardNo">
                                     <Form.Label>Card Number</Form.Label>
                                     <Form.Control type="text" required name="cardNo" value={this.state.cardNo} onChange={this.checkNumber}/>
-                                    <Form.Text className="text-muted">
+                                    <Form.Text style={{color:`${textColor}`}}>
                                         16 digits
                                     </Form.Text>
                                 </Form.Group>
@@ -275,7 +275,7 @@ class BookNow extends Component {
                                         placeholder="Month/Year"
                                         name="expDate" value={this.state.expDate} onChange={this.checkNumber}
                                     />
-                                    <Form.Text className="text-muted">
+                                    <Form.Text style={{color:`${textColor}`}}>
                                         Example: 06/13
                                     </Form.Text>
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
@@ -288,7 +288,7 @@ class BookNow extends Component {
                                         placeholder=""
                                         name="cvv" value={this.state.cvv} onChange={this.checkNumber}
                                     />
-                                    <Form.Text className="text-muted">
+                                    <Form.Text style={{color:`${textColor}`}}>
                                         3 numbers back of the card
                                     </Form.Text>
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>

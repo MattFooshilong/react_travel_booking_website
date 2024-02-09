@@ -2,11 +2,13 @@ import React from 'react';
 import { Card, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
-function MainPage() {
+function MainPage(props) {
+	let cardBackgroundColor = props.darkMode? 'black' : 'white'
+	let textColor = props.darkMode? 'light':'dark';
   return (
     <div >
       {/* Japan */}
-      <Card className="cardStyle">
+      <Card className="cardStyle" bg={cardBackgroundColor} text={textColor}>
         <Row>
           <Col lg={3}>
             <Link to="/Japan"><Card.Img src="sakura.jfif" className="cardImg" /></Link>
@@ -23,7 +25,7 @@ function MainPage() {
         </Row>
       </Card>
       {/* Korea */}
-      <Card className="cardStyle">
+      <Card className="cardStyle" bg={cardBackgroundColor} text={textColor}>
         <Row>
           <Col lg={3}>
             <Link to="/Korea"><Card.Img fluid src="seoul.png" className="cardImg" /></Link>
@@ -40,7 +42,7 @@ function MainPage() {
         </Row>
       </Card>
       {/* China */}
-      <Card className="cardStyle">
+      <Card className="cardStyle" bg={cardBackgroundColor} text={textColor}>
         <Row>
           <Col lg={3}>
             <Link to="/China"><Card.Img variant="top" src="beijing.jfif" className="cardImg" /></Link>

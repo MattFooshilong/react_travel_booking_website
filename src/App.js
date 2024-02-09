@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Container from './components/Container.js';
 import MainPage from './components/MainPage.js';
@@ -13,11 +13,17 @@ import Footer from './components/Footer.js';
 import './components/myStyles.css';
 
 function App() {
+	const [darkMode, setDarkMode] = useState(false)
+	
+	const handleChange = () => {
+		setDarkMode(!darkMode)
+	}
+	
   return (
-    <div >
+    <div style={{backgroundColor:`${darkMode ? 'black' : 'white'}`}}>
       <React.Fragment >
         <Router>
-          <Navbar />
+          <Navbar darkMode={darkMode} onDarkMode={handleChange}/>
           <Navbar2 />
           <Container>
             <Switch>

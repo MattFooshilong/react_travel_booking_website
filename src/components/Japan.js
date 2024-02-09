@@ -1,11 +1,9 @@
-import React, { Component } from 'react';
-import {
-    Row, Col, Image, Badge, ListGroup
-} from 'react-bootstrap';
+import React from 'react';
+import { Row, Col, Image, Badge, ListGroup } from 'react-bootstrap';
 import './myStyles.css';
 
-class Japan extends Component {
-    render() {
+const Japan = (props) => {
+    let textColor = props.darkMode? 'light':'dark';
         return (
             <div>
                 <Row className="my-3">
@@ -125,7 +123,6 @@ class Japan extends Component {
                 </Row>
 
             </div>
-        )
-    }
-};
-export default Japan;
+        )  
+}
+export default Japan

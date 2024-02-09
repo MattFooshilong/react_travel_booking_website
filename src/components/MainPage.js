@@ -3,7 +3,7 @@ import { Card, Button, Row, Col } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 
 function MainPage(props) {
-	let cardBackgroundColor = props.darkMode? 'black' : 'white'
+	let cardBackgroundColor = props.darkMode? 'dark' : 'light'
 	let textColor = props.darkMode? 'light':'dark';
   return (
     <div >

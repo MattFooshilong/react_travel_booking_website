@@ -27,11 +27,11 @@ function App() {
           <Navbar2 />
           <Container>
             <Switch>
-              <Route exact path="/" component={MainPage} />
-              <Route path="/Japan" component={Japan} />
-              <Route path="/Korea" component={Korea} />
-              <Route path="/China" component={China} />
-              <Route path="/BookNow" component={BookNow} />
+				<Route exact path="/" render={()=><MainPage darkMode={darkMode}/>}/>
+	            <Route path="/Japan" render={()=><Japan darkMode={darkMode}/>} />
+	            <Route path="/Korea" render={()=><Korea darkMode={darkMode}/>} />
+	            <Route path="/China" render={()=><China darkMode={darkMode}/>} />
+	            <Route path="/BookNow" render={()=><BookNow darkMode={darkMode}/>} />
               <Route component={NoMatch} />
             </Switch>
           </Container>

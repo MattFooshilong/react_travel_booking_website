@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Row, Col, Button} from 'react-bootstrap';
+import { Form, Row, Col, Button, Alert} from 'react-bootstrap';
 import './myStyles.css';
 import dayjs from 'dayjs'
 
@@ -20,23 +20,23 @@ const BookNow = (props) => {
 		showSensitiveFields: false ,
 		cardNo:'',
 		expDate:'',
-		cvv:''
+		cvv:'',
+		formSuccess: false
 	})
 
     const submitHandler = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-        }
-        setFormFields({ ...formFields, validated: true })
-    }
+		event.preventDefault()
+		event.stopPropagation()
+        const form = event.currentTarget
+		setFormFields(prevState => ({ ...prevState, validated: true, formSuccess:form.checkValidity()}))
+	}
+    
 
     const onChangeHandler = (e) => setFormFields({...formFields, [e.target.name]: e.target.value})
     
-    const cardTypeHandler = (type) => setFormFields({...formFields, cardType: type})
+    const cardTypeHandler = (type) => setFormFields(prevState => ({...prevState, cardType: type}))
      
-    const showHide = () => setFormFields({...formFields, showSensitiveFields: !formFields.showSensitiveFields})
+    const showHide = () => setFormFields(prevState => ({...prevState, showSensitiveFields: !formFields.showSensitiveFields}))
 	
     const checkNumber = (event) => {
         const zip = new RegExp('^[0-9]{1,6}$');//6 digits only
@@ -47,19 +47,19 @@ const BookNow = (props) => {
         let val = event.target.value;
          if(name ==="zipcode"){
             if(zip.test(val)||val===''){
-                setFormFields({...formFields, [name]: val})
+                setFormFields(prevState => ({...prevState, [name]: val}))
             }
          }else if(name ==="cardNo"){
             if(cardNo.test(val)||val===''){
-                setFormFields({...formFields, [name]: val})
+                setFormFields(prevState => ({...prevState, [name]: val}))
             }
          }else if(name ==="expDate"){
             if(expDate.test(val)||val===''){
-                setFormFields({...formFields, [name]: val})
+                setFormFields(prevState => ({...prevState, [name]: val}))
             }
          }else if(name ==="cvv"){
             if(cvv.test(val)||val===''){
-                setFormFields({...formFields, [name]: val})
+                setFormFields(prevState => ({...prevState, [name]: val}))
             }
          }
      }
@@ -69,7 +69,7 @@ const BookNow = (props) => {
         let name = event.target.name;
         let val = event.target.value;
         if(abc.test(val)||val===''){
-			setFormFields({...formFields, [name]: val})
+			setFormFields(prevState => ({...prevState, [name]: val}))
         }
     }
     
@@ -83,6 +83,8 @@ const BookNow = (props) => {
 
         return (
             <div style={{color:`${textColor}`}}>
+				{console.log(formFields.formSuccess )}
+				{formFields.formSuccess && <Alert variant='success'>Your trip has been booked!</Alert>}
                 <Row className="my-3">
                     <Col lg={8}>
                         <Form noValidate validated={formFields.validated} onSubmit={submitHandler}>
@@ -186,7 +188,7 @@ const BookNow = (props) => {
                                     </Form.Control.Feedback>
                                 </Form.Group>
                             </Form.Row>
-                            {/* Payment Details */}
+
                             <h3>Payment Details</h3>
 
                             <Form.Group>
@@ -198,7 +200,8 @@ const BookNow = (props) => {
                                     id="Radios1"
 									required
                                     onClick={() => cardTypeHandler('Credit Card')}
-                                    
+                                    feedback="Please choose one"
+          							feedbackType="invalid"
                                 />
                                 <Form.Check
                                     type="radio"
@@ -207,7 +210,8 @@ const BookNow = (props) => {
                                     id="Radios2"
 									required
                                     onClick={() => cardTypeHandler('Debit Card')}
-                                    
+                                    feedback="Please choose one"
+          							feedbackType="invalid"
                                 />
                                 
                             </Form.Group>
@@ -280,6 +284,7 @@ const BookNow = (props) => {
                                     required
                                     label="I Agree to the terms and conditions"
                                     feedback="You must agree before submitting."
+									feedbackType="invalid"
                                 />
                             </Form.Group>
                             <Button type="submit">Submit</Button>
@@ -316,6 +321,8 @@ const BookNow = (props) => {
                     </div>
                     </Col>
                 </Row>
+
+				
 
             </div>
         )

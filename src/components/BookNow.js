@@ -1,114 +1,91 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Form, Row, Col, Button} from 'react-bootstrap';
 import './myStyles.css';
 import dayjs from 'dayjs'
 
-const greyBox = {
-    display:'inline-block',
-    height:'20px',
-    width:'100px',
-    backgroundColor:'#c9c9c9'
-}
-const greyBox2 = {display:'none'};
-let myClass = greyBox;
+const BookNow = (props) => {
+	const [formFields, setFormFields] = useState({
+		validated: false,
+		lastName: '',
+		firstName:'',
+		fromDate:'',
+		toDate:'',
+		country:'Japan',
+		email:'',
+		address:'',
+		city:'',
+		stateOfCtry:'',
+		zipcode:'',
+		cardType:'',
+		showSensitiveFields: false ,
+		cardNo:'',
+		expDate:'',
+		cvv:''
+	})
 
-class BookNow extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            validated: false,
-            lastName: '',
-            firstName:'',
-            fromDate:'',
-            toDate:'',
-            country:'Japan',
-            email:'',
-            address:'',
-            city:'',
-            stateOfCtry:'',
-            zipcode:'',
-            cardType:'________',
-            display:'none',
-            showBtn:true ,
-            cardNo:'',
-            expDate:'',
-            cvv:'',
-        };
-    }
-
-    submitHandler = (event) => {
+    const submitHandler = (event) => {
         const form = event.currentTarget;
         if (form.checkValidity() === false) {
             event.preventDefault();
             event.stopPropagation();
         }
-        this.setState({ validated: true })
-    };
+        setFormFields({ ...formFields, validated: true })
+    }
 
+    const onChangeHandler = (e) => setFormFields({...formFields, [e.target.name]: e.target.value})
     
-    onChangeHandler = (event) =>{
-        let name = event.target.name;
-        let value = event.target.value;
-		this.setState({[name]: value});
-    };
-    
-     cardTypeHandler = (type) =>{
-         this.setState({cardType:type});
-     };
+    const cardTypeHandler = (type) => setFormFields({...formFields, cardType: type})
      
-     showHide = () =>{
-         if(this.state.showBtn){
-            this.setState({display:'inline-block'});
-            myClass = greyBox2;
-         }else{
-            this.setState({display:'none'});
-            myClass = greyBox;
-         }
-         this.setState({showBtn:!this.state.showBtn});
-     }
-
-     checkNumber = (event) => {
+    const showHide = () => setFormFields({...formFields, showSensitiveFields: !formFields.showSensitiveFields})
+	
+    const checkNumber = (event) => {
         const zip = new RegExp('^[0-9]{1,6}$');//6 digits only
         const cardNo = new RegExp('^[0-9 ]{1,19}$');//16 digits and 3 spaces
         const expDate = new RegExp('^[0-9\/]{1,5}$');//4 digits and a slash
         const cvv = new RegExp('^[0-9]{1,3}$');//3 digits only
-        let nam = event.target.name;
+        let name = event.target.name;
         let val = event.target.value;
-         if(nam==="zipcode"){
+         if(name ==="zipcode"){
             if(zip.test(val)||val===''){
-                this.setState({[nam]: val});   
+                setFormFields({...formFields, [name]: val})
             }
-         }else if(nam==="cardNo"){
+         }else if(name ==="cardNo"){
             if(cardNo.test(val)||val===''){
-                this.setState({[nam]: val});   
+                setFormFields({...formFields, [name]: val})
             }
-         }else if(nam==="expDate"){
+         }else if(name ==="expDate"){
             if(expDate.test(val)||val===''){
-                this.setState({[nam]: val});   
+                setFormFields({...formFields, [name]: val})
             }
-         }else if(nam==="cvv"){
+         }else if(name ==="cvv"){
             if(cvv.test(val)||val===''){
-                this.setState({[nam]: val});   
+                setFormFields({...formFields, [name]: val})
             }
          }
      }
 
-     alphabetsOnly=(event)=>{
+    const alphabetsOnly = (event) => {
         const abc = new RegExp('^[a-zA-Z ]{1,}$');//abcs only, at least 1
-        let nam = event.target.name;
+        let name = event.target.name;
         let val = event.target.value;
         if(abc.test(val)||val===''){
-            this.setState({[nam]: val});   
+			setFormFields({...formFields, [name]: val})
         }
-     }
-    render() {
-        let textColor = this.props.darkMode? 'white':'black';
+    }
+    
+        let textColor = props?.darkMode? 'white':'black';
+		const greyBoxCSS = {
+			display:'inline-block',
+			height:'20px',
+			width:'100px',
+			backgroundColor:'#c9c9c9'
+		}
+
         return (
             <div style={{color:`${textColor}`}}>
                 <Row className="my-3">
                     <Col lg={8}>
-                        <Form noValidate validated={this.state.validated} onSubmit={this.submitHandler}>
+                        <Form noValidate validated={formFields.validated} onSubmit={submitHandler}>
                             {/* Travel Details */}
                             <h3>Travel Details</h3>
                             <Form.Row>
@@ -118,8 +95,8 @@ class BookNow extends Component {
                                         required
                                         type="date"
                                         name='fromDate'
-                                        value={this.state.fromDate}
-                                        onChange={this.onChangeHandler}
+                                        value={formFields.fromDate}
+                                        onChange={onChangeHandler}
                                     />
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
@@ -129,8 +106,8 @@ class BookNow extends Component {
                                         required
                                         type="date"
                                         name='toDate'
-                                        value={this.state.toDate}
-                                        onChange={this.onChangeHandler}
+                                        value={formFields.toDate}
+                                        onChange={onChangeHandler}
                                     />
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
@@ -139,7 +116,7 @@ class BookNow extends Component {
                             <Form.Row>
                                 <Form.Group as={Col} lg="6" controlId="countries">
                                     <Form.Label>Country</Form.Label>
-                                    <Form.Control as="select" name="country" value={this.state.country} required onChange={this.onChangeHandler} >
+                                    <Form.Control as="select" name="country" value={formFields.country} required onChange={onChangeHandler} >
                                         <option value="Japan">Japan</option>
                                         <option value="Korea">Korea</option>
                                         <option value="China">China</option>
@@ -156,7 +133,7 @@ class BookNow extends Component {
                                         required
                                         type="text"
                                         placeholder="Jackie"
-                                        value={this.state.firstName} name="firstName" onChange={this.alphabetsOnly}
+                                        value={formFields.firstName} name="firstName" onChange={alphabetsOnly}
                                     />
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
@@ -166,7 +143,7 @@ class BookNow extends Component {
                                         required
                                         type="text"
                                         placeholder="Chan"
-                                        value={this.state.lastName} name="lastName" onChange={this.alphabetsOnly}
+                                        value={formFields.lastName} name="lastName" onChange={alphabetsOnly}
                                     />
                                     <Form.Control.Feedback >Looks good!</Form.Control.Feedback>
                                 </Form.Group>
@@ -175,32 +152,32 @@ class BookNow extends Component {
                             <Form.Row>
                                 <Form.Group as={Col} lg="6" controlId="Email">
                                     <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" required name='email' value={this.state.email} onChange={this.onChangeHandler}/>
+                                    <Form.Control type="email" placeholder="Enter email" required name='email' value={formFields.email} onChange={onChangeHandler}/>
                                 </Form.Group>
                             </Form.Row>
                             {/* Address */}
                             <Form.Group controlId="Address">
                                 <Form.Label>Address</Form.Label>
-                                <Form.Control type="text" placeholder="Blk 123 Tampines Road" required name='address' value={this.state.address} onChange={this.onChangeHandler}/>
+                                <Form.Control type="text" placeholder="Blk 123 Tampines Road" required name='address' value={formFields.address} onChange={onChangeHandler}/>
                             </Form.Group>
                             <Form.Row>
                                 <Form.Group as={Col} lg="6" controlId="city">
                                     <Form.Label>City</Form.Label>
-                                    <Form.Control type="text" placeholder="City" required value={this.state.city} name="city" onChange={this.alphabetsOnly}/>
+                                    <Form.Control type="text" placeholder="City" required value={formFields.city} name="city" onChange={alphabetsOnly}/>
                                     <Form.Control.Feedback type="invalid">
                                         Please provide a valid city.
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group as={Col} lg="3" controlId="State">
                                     <Form.Label>State</Form.Label>
-                                    <Form.Control type="text" placeholder="State" required value={this.state.stateOfCtry} name="stateOfCtry" onChange={this.alphabetsOnly}/>
+                                    <Form.Control type="text" placeholder="State" required value={formFields.stateOfCtry} name="stateOfCtry" onChange={alphabetsOnly}/>
                                     <Form.Control.Feedback type="invalid">
                                         Please provide a valid state.
                                     </Form.Control.Feedback>
                                 </Form.Group>
                                 <Form.Group as={Col} lg="3" controlId="zipcode">
                                     <Form.Label>Zipcode</Form.Label>
-                                    <Form.Control type="text" placeholder="Zipcode" name="zipcode" value={this.state.zipcode} required onChange={this.checkNumber}/>
+                                    <Form.Control type="text" placeholder="Zipcode" name="zipcode" value={formFields.zipcode} required onChange={checkNumber}/>
                                     <Form.Text style={{color:`${textColor}`}}>
                                         6 digits only
                                     </Form.Text>
@@ -219,7 +196,8 @@ class BookNow extends Component {
                                     label="Credit Card"
                                     name="payment"
                                     id="Radios1"
-                                    onClick={() => this.cardTypeHandler('Credit Card')}
+									required
+                                    onClick={() => cardTypeHandler('Credit Card')}
                                     
                                 />
                                 <Form.Check
@@ -227,7 +205,8 @@ class BookNow extends Component {
                                     label="Debit Card"
                                     name="payment"
                                     id="Radios2"
-                                    onClick={() => this.cardTypeHandler('Debit Card')}
+									required
+                                    onClick={() => cardTypeHandler('Debit Card')}
                                     
                                 />
                                 
@@ -240,7 +219,7 @@ class BookNow extends Component {
                                         required
                                         type="text"
                                         placeholder="Jackie"
-                                        value={this.state.firstName} name="firstName" onChange={this.alphabetsOnly}
+                                        value={formFields.firstName} name="firstName" onChange={alphabetsOnly}
                                     />
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
@@ -250,7 +229,7 @@ class BookNow extends Component {
                                         required
                                         type="text"
                                         placeholder="Chan"
-                                        value={this.state.lastName} name="lastName" onChange={this.alphabetsOnly}
+                                        value={formFields.lastName} name="lastName" onChange={alphabetsOnly}
                                     />
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
@@ -259,7 +238,7 @@ class BookNow extends Component {
                             <Form.Row>
                                 <Form.Group as={Col} lg="6" controlId="cardNo">
                                     <Form.Label>Card Number</Form.Label>
-                                    <Form.Control type="text" required name="cardNo" value={this.state.cardNo} onChange={this.checkNumber}/>
+                                    <Form.Control type="text" required name="cardNo" value={formFields.cardNo} onChange={checkNumber}/>
                                     <Form.Text style={{color:`${textColor}`}}>
                                         16 digits
                                     </Form.Text>
@@ -273,7 +252,7 @@ class BookNow extends Component {
                                         required
                                         type="text"
                                         placeholder="Month/Year"
-                                        name="expDate" value={this.state.expDate} onChange={this.checkNumber}
+                                        name="expDate" value={formFields.expDate} onChange={checkNumber}
                                     />
                                     <Form.Text style={{color:`${textColor}`}}>
                                         Example: 06/13
@@ -286,10 +265,10 @@ class BookNow extends Component {
                                         required
                                         type="text"
                                         placeholder=""
-                                        name="cvv" value={this.state.cvv} onChange={this.checkNumber}
+                                        name="cvv" value={formFields.cvv} onChange={checkNumber}
                                     />
                                     <Form.Text style={{color:`${textColor}`}}>
-                                        3 numbers back of the card
+                                        The 3 numbers back of the card
                                     </Form.Text>
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
@@ -299,7 +278,7 @@ class BookNow extends Component {
                             <Form.Group>
                                 <Form.Check
                                     required
-                                    label="I Agree to terms and conditions"
+                                    label="I Agree to the terms and conditions"
                                     feedback="You must agree before submitting."
                                 />
                             </Form.Group>
@@ -310,21 +289,27 @@ class BookNow extends Component {
                     {/* Confirmation */}
                     <Col lg={4} >
                         <div className="iti">
-                    <h3>Hi {this.state.firstName} {this.state.lastName}</h3>
-                    <p>Your trip is from {this.state.fromDate ? dayjs(this.state.fromDate).format('DD/MM/YYYY') : '01/01/2024'} to {this.state.toDate ? dayjs(this.state.toDate).format('DD/MM/YYYY') : '01/01/2024'}, to {this.state.country}.</p>
+                    <h3>Hi {formFields.firstName} {formFields.lastName}</h3>
+                    <p>Your trip is from {formFields.fromDate ? dayjs(formFields.fromDate).format('DD/MM/YYYY') : '01/01/2024'} to {formFields.toDate ? dayjs(formFields.toDate).format('DD/MM/YYYY') : '01/01/2024'}, to {formFields.country}.</p>
                     <p className='mb-0'>Your billing details are:</p> 
-                    <p className='my-0'> Email: {this.state.email}</p>
-                    <p className='mt-0'> Address: {this.state.address}, {this.state.city}, {this.state.stateOfCtry}, {this.state.zipcode}</p>
-                    <p> You have chosen to pay by {this.state.cardType}.</p>
+                    <p className='my-0'> Email: {formFields.email}</p>
+                    <p className='mt-0'> Address: {formFields.address} {formFields.city} {formFields.stateOfCtry} {formFields.zipcode}</p>
+                    <p> You have chosen to pay by: {formFields.cardType}.</p>
 
                     <p className='my-0'>Check your details by clicking below</p>
-                    <Button variant="outline-primary" size="sm" onClick={this.showHide} className="my-1">Show/Hide</Button>
+                    <Button variant="outline-primary" size="sm" onClick={showHide} className="my-1">{formFields.showSensitiveFields ? "Hide" : "Show"}</Button>
                     {/*Hiding and showing like below is not secure but don't want effort to go to waste */}
-                    <p className='my-0'>Card No: <div style={{display:`${this.state.display}`}} > {this.state.cardNo}</div><span style={myClass}></span>
+                    <p className='my-0'>Card No: 
+						{formFields.showSensitiveFields && formFields.cardNo}
+						{!formFields.showSensitiveFields && <span style={greyBoxCSS}></span>}
                     </p>
-                    <p className='my-0'>Expiration Date: <div style={{display:`${this.state.display}`}} > {this.state.expDate}</div><span style={myClass}></span>
+                    <p className='my-0'>Expiration Date: 
+						{formFields.showSensitiveFields && formFields.expDate}
+						{!formFields.showSensitiveFields && <span style={greyBoxCSS}></span>}
                     </p>
-                    <p className='mt-0'>CVV: <div style={{display:`${this.state.display}`}} > {this.state.cvv}</div><span style={myClass}></span>
+                    <p className='mt-0'>CVV: 
+						{formFields.showSensitiveFields && formFields.cvv}
+						{!formFields.showSensitiveFields && <span style={greyBoxCSS}></span>}
                     </p>
                     
                     <p> Enjoy your trip!</p>
@@ -334,6 +319,5 @@ class BookNow extends Component {
 
             </div>
         )
-    }
 }
 export default BookNow

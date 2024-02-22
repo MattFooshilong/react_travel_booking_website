@@ -9,9 +9,9 @@ class Footer extends Component {
                 <Row className="justify-content-center text-white text-center py-0 py-lg-3">
                     <Col lg={3} className="mt-4 mt-lg-0">
                         <h2>About Us</h2>
-                        <a href="#" class="text-white">Press</a><br />
-                        <a href="#" class="text-white">Blog</a><br />
-                        <a href="#" class="text-white">Reviews</a><br />
+                        <a href="#" className="text-white">Press</a><br />
+                        <a href="#" className="text-white">Blog</a><br />
+                        <a href="#" className="text-white">Reviews</a><br />
                     </Col>
                         
                     <Col lg={3} className="mt-4 mt-lg-0">
@@ -23,8 +23,8 @@ class Footer extends Component {
                     </Col>
                     <Col lg={3} className="mt-4 mt-lg-0">
                         <h2>Terms of Use</h2>
-                        <a href="#" class="text-white">Privacy Policy</a><br />
-                        <a href="#" class="text-white">Terms and Conditions</a>
+                        <a href="#" className="text-white">Privacy Policy</a><br />
+                        <a href="#" className="text-white">Terms and Conditions</a>
                     </Col>
                 </Row>
             </div>

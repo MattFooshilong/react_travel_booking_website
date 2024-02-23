@@ -83,8 +83,6 @@ const BookNow = (props) => {
 
         return (
             <div style={{color:`${textColor}`}}>
-				{console.log(formFields.formSuccess )}
-				{formFields.formSuccess && <Alert variant='success'>Your trip has been booked!</Alert>}
                 <Row className="my-3">
                     <Col lg={8}>
                         <Form noValidate validated={formFields.validated} onSubmit={submitHandler}>
@@ -201,7 +199,6 @@ const BookNow = (props) => {
 									required
                                     onClick={() => cardTypeHandler('Credit Card')}
                                     feedback="Please choose one"
-          							feedbackType="invalid"
                                 />
                                 <Form.Check
                                     type="radio"
@@ -211,7 +208,6 @@ const BookNow = (props) => {
 									required
                                     onClick={() => cardTypeHandler('Debit Card')}
                                     feedback="Please choose one"
-          							feedbackType="invalid"
                                 />
                                 
                             </Form.Group>
@@ -277,14 +273,14 @@ const BookNow = (props) => {
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
                             </Form.Row>
-                            
+							{formFields.formSuccess && <Alert variant='success'>Your trip has been booked!</Alert>}
+
                             {/* Submit */}
                             <Form.Group>
                                 <Form.Check
                                     required
                                     label="I Agree to the terms and conditions"
                                     feedback="You must agree before submitting."
-									feedbackType="invalid"
                                 />
                             </Form.Group>
                             <Button type="submit">Submit</Button>
@@ -322,7 +318,7 @@ const BookNow = (props) => {
                     </Col>
                 </Row>
 
-				
+
 
             </div>
         )

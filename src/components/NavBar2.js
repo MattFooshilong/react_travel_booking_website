@@ -8,15 +8,9 @@ function CustomNavBar2() {
         <div>
             <Navbar bg="danger" expand="lg">
                     <Nav className="mr-auto">
-                        <Nav.Link>
-                            <Link to="/Japan" className="text-white h5">Japan</Link>
-                        </Nav.Link>
-                        <Nav.Link>
-                            <Link to="/Korea" className="text-white h5">Korea</Link>
-                        </Nav.Link>
-                        <Nav.Link>
-                            <Link to="/China" className="text-white h5">China</Link>
-                        </Nav.Link>
+                        <Nav.Link href="/Japan" className="text-white h5">Japan</Nav.Link>
+                        <Nav.Link href="/Korea" className="text-white h5">Korea</Nav.Link>
+                        <Nav.Link href="/China" className="text-white h5">China</Nav.Link>
                     </Nav>
                     <Link to="/BookNow" className="hoverBtn"><Button variant="outline-light">Book Now</Button></Link>
             </Navbar>

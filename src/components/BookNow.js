@@ -259,7 +259,7 @@ const BookNow = (props) => {
                                     </Form.Text>
                                     <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                                 </Form.Group>
-                                <Form.Group as={Col} lg="3" xs="3" controlId="cvv">
+                                <Form.Group as={Col} lg="3" controlId="cvv">
                                     <Form.Label xs="12">CVV</Form.Label>
                                     <Form.Control
                                         required

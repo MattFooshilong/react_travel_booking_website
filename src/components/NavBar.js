@@ -16,23 +16,23 @@ function CustomNavBar(props) {
                 <Navbar.Brand ><Link to="/" className={`${txtColor} noUnderLine`}>Travel Asia</Link></Navbar.Brand>
                 <Navbar.Toggle />
                 <Navbar.Collapse className="justify-content-end">
-                    <Row >
-                        <Col lg="auto" className="p-0 switchStyle smallScreenStyle">
-							<Image src="sun.png" rounded className="switchIconStyle mr-2" />
+                    <Row>
+                        <Col lg="auto" className="iconStyle" style={{marginTop:"3px"}}>
+							<Image src="sun.png" rounded className="imageSize mr-2" alt="sun.png"/>
 							<Form>
                                 <Form.Check type="switch" id="darkMode" label="" onClick={handleClick} />
                             </Form>
-                            <Image src="night.png" rounded className="switchIconStyle" />
+                            <Image src="night.png" rounded className="imageSize" alt="night.png"/>
                         </Col>
 						{/* Social Media Icons */}
-                        <Col lg="auto" className="p-0">
-                            <Link to="#"><Image src="twitter.png" rounded className="imageSize" /></Link>
-                            <Link to="#"><Image src="instagram.png" rounded className="imageSize" /></Link>
-                            <Link to="#"><Image src="fb.png" rounded className="imageSize" /></Link>
+                        <Col lg="auto" className="iconStyle socialMediaSmallScreenStyle">
+							<Link to="#"><Image src="twitter.png" rounded className="imageSize mr-2" alt="twitter.png"/></Link>
+							<Link to="#"><Image src="instagram.png" rounded className="imageSize mr-2" alt="insta.png"/></Link>
+							<Link to="#"><Image src="fb.png" rounded className="imageSize mr-2" alt="fb.png"/></Link>
                         </Col>
-                        <Col className="p-0">
+                        <Col lg="auto">
                             <Nav.Item>
-                                <Nav.Link href="#footer" className={`${txtColor} pl-0 text-center`}>
+                                <Nav.Link href="#footer" className={`${txtColor} text-center`}>
                                     About
                                 </Nav.Link>
                             </Nav.Item>

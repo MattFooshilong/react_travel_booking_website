@@ -9,8 +9,7 @@ a.noUnderLine:hover{
     display:inline-block;
     width:20px;
     height:20px;
-    margin-right: 12px;
-    margin-top: 12px;
+
   }
 
   a.hoverBtn:hover{
@@ -67,11 +66,11 @@ a.noUnderLine:hover{
 body.test{
   background-color: black; 
 }
-.switchStyle{
+.iconStyle{
 	display:flex;
 	flex-direction: row;
-	align-items: center;
-	margin-right: 32px;
+	justify-content: center;
+	padding: 0.5rem;
   }
 .switchIconStyle{
     display:inline-block;
@@ -95,8 +94,8 @@ body.test{
       padding-top:20px;
       border-left:0px !important;
     }
-	.switchStyle{
-		margin-right:10px;
+	.socialMediaSmallScreenStyle{
+		padding-left:15px  !important;
 	}
 	.smallScreenStyle{
 		display:flex;
